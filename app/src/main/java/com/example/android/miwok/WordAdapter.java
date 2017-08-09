@@ -16,10 +16,12 @@
 package com.example.android.miwok;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -63,6 +65,25 @@ public class WordAdapter extends ArrayAdapter<Word>  {
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         defaultTextView.setText(currentWord.getDefaultTranslation());
+
+        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+        ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
+        // Get the image resource ID from the current AndroidFlavor object and
+        // set the image to iconView
+        if(currentWord.getImageResourceId() != 0){
+            imageView.setImageResource(currentWord.getImageResourceId());
+        }
+        else {
+            imageView.setVisibility(View.GONE);
+        }
+        /**
+         * View.VISIBLE   0
+         * View.INVISIBLE 4
+         * View.GONE      8
+         */
+
+
+        //Log.v("PhrasesActivity", "ID: " + currentWord.getImageResourceId());
 
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in
         // the ListView.
