@@ -28,6 +28,37 @@ import java.util.ArrayList;
 
 public class PhrasesActivity extends AppCompatActivity {
 
+    private  MediaPlayer mMediaPlayer;
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            releaseMediaPlayer();
+        }
+    };
+
+    /**
+     * Clean up the media player by releasing its resources.
+     */
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mMediaPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mMediaPlayer.release();
+
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mMediaPlayer = null;
+
+            // Regardless of whether or not we were granted audio focus, abandon it. This also
+            // unregisters the AudioFocusChangeListener so we don't get anymore callbacks.
+            //mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
+        }
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +96,9 @@ public class PhrasesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Get the {@link Word} object at the given position the user clicked on
                 Word word = words.get(position);
+
+                releaseMediaPlayer();
+
                 Log.v("NumbersActivity", "Current word: " + word);
                 Toast.makeText(PhrasesActivity.this, "Open Numbers", Toast.LENGTH_SHORT).show();
                 // Create and setup the {@link MediaPlayer} for the audio resource associated with the current word
@@ -72,6 +106,7 @@ public class PhrasesActivity extends AppCompatActivity {
                 // Start the audio file
                 mediaPlayer.start();
 
+                mediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
     }
