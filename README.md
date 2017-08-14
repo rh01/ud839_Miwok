@@ -12,20 +12,26 @@ Pre-requisites
 - Android Support Repository v23.3.0
 
 Getting Started
----------------
+
+----------------------
+
+
 
 This sample uses the Gradle build system. To build this project, use the
+
 "gradlew build" command or use "Import Project" in Android Studio.
 
 
 
-## Final
+Final
 
-* MainActivty
+-------
+
+- MainActivty
 
 ![](http://olrs8j04a.bkt.clouddn.com/17-8-14/75781511.jpg?imageMogr/thumbnail/!40p)
 
-* FamilyActivity
+- FamilyActivity
 
 ![](http://olrs8j04a.bkt.clouddn.com/17-8-14/4235716.jpg?imageMogr/thumbnail/!40p )
 
